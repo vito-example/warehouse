@@ -12,6 +12,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\SupplierRequest;
 use App\Http\Resources\Api\v1\Supplier\SupplierCollection;
+use App\Http\Resources\Api\v1\Supplier\SupplierResource;
 use App\Repositories\SupplierRepositoryInterface;
 use Illuminate\Http\Request;
 
@@ -49,24 +50,14 @@ class SupplierController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @param SupplierRequest $request
+     * @return SupplierResource
      */
-    public function create()
+    public function store(SupplierRequest $request): SupplierResource
     {
-        //
-    }
+        $attributes = $request->only('name');
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        return new SupplierResource($this->supplierRepository->create($attributes));
     }
 
     /**
