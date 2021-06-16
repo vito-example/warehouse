@@ -10,6 +10,9 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\V1\ProductRequest;
+use App\Http\Resources\Api\v1\Product\ProductCollection;
+use App\Repositories\ProductRepositoryInterface;
 use Illuminate\Http\Request;
 
 /**
@@ -19,13 +22,30 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
     /**
+     * @var ProductRepositoryInterface
+     */
+    private $productRepository;
+
+    /**
+     * ProductController constructor.
+     * @param ProductRepositoryInterface $productRepository
+     */
+    public function __construct(
+        ProductRepositoryInterface $productRepository
+    ) {
+        $this->productRepository = $productRepository;
+    }
+
+
+    /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param ProductRequest $request
+     * @return ProductCollection
      */
-    public function index()
+    public function index(ProductRequest $request): ProductCollection
     {
-        //
+        return new ProductCollection($this->productRepository->getData($request, ['warehouses']));
     }
 
     /**
