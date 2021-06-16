@@ -10,6 +10,9 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\V1\SupplierRequest;
+use App\Http\Resources\Api\v1\Supplier\SupplierCollection;
+use App\Repositories\SupplierRepositoryInterface;
 use Illuminate\Http\Request;
 
 /**
@@ -18,14 +21,31 @@ use Illuminate\Http\Request;
  */
 class SupplierController extends Controller
 {
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @var SupplierRepositoryInterface
      */
-    public function index()
+    private $supplierRepository;
+
+    /**
+     * SupplierController constructor.
+     * @param SupplierRepositoryInterface $supplierRepository
+     */
+    public function __construct(
+        SupplierRepositoryInterface $supplierRepository
+    )
     {
-        //
+        $this->supplierRepository = $supplierRepository;
+    }
+
+
+    /**
+     * @param SupplierRequest $request
+     * @return SupplierCollection
+     */
+    public function index(SupplierRequest $request): SupplierCollection
+    {
+        return new SupplierCollection($this->supplierRepository->getData($request));
     }
 
     /**
