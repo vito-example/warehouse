@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\ScopeFilter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -17,7 +18,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Supplier extends Model
 {
-    use HasFactory,softDeletes;
+    use HasFactory,softDeletes,ScopeFilter;
 
     /**
      * The table associated with the model.
@@ -34,4 +35,31 @@ class Supplier extends Model
     protected $fillable = [
         'name',
     ];
+
+    /**
+     * @var string
+     */
+    public $defaultSort = 'created_at';
+    /**
+     * @var string
+     */
+    public $defaultOrder = 'desc';
+
+
+    /**
+     * @return array[]
+     */
+    public function getFilterScopes(): array
+    {
+        return [
+            'id' => [
+                'hasParam' => true,
+                'scopeMethod' => 'id'
+            ],
+            'name' => [
+                'hasParam' => true,
+                'scopeMethod' => 'name'
+            ],
+        ];
+    }
 }
