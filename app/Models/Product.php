@@ -12,6 +12,7 @@ namespace App\Models;
 use App\Traits\ScopeFilter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -69,5 +70,16 @@ class Product extends Model
                 'scopeMethod' => 'name'
             ],
         ];
+    }
+
+    /**
+     * warehouses
+     *
+     * @return BelongsToMany
+     */
+    public function warehouses(): BelongsToMany
+    {
+        return $this->belongsToMany(WareHouse::class, 'product_warehouses')
+            ->withPivot(['count', 'date']);
     }
 }
