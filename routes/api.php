@@ -10,10 +10,14 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('v1')->group(function () {
 
     // Supplier Module
-    Route::apiResource('supplier',SupplierController::class);
+    Route::apiResource('supplier',SupplierController::class)->except([
+        'edit', 'update'
+    ]);
 
     // Warehouse Module
-    Route::apiResource('warehouse',WarehouseController::class);
+    Route::apiResource('warehouse',WarehouseController::class)->except([
+        'edit', 'update'
+    ]);
 
     // Product Module
     Route::apiResource('product',ProductController::class);
