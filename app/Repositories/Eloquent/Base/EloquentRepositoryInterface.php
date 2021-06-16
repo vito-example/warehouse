@@ -47,4 +47,11 @@ interface EloquentRepositoryInterface
      * @return mixed
      */
     public function findOrFail(int $id, array $columns = ['*']);
+
+    /**
+     * @param integer $id
+     *
+     * @return Model
+     */
+    public function delete(int $id): Model;
 }

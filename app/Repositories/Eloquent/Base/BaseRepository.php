@@ -11,6 +11,8 @@
 namespace App\Repositories\Eloquent\Base;
 
 use App\Exceptions\Api\v1\DataNotFoundException;
+use App\Exceptions\Api\v1\DeleteException;
+use App\Exceptions\Api\v1\TrashException;
 use App\Exceptions\Api\v1\UpdateException;
 use Illuminate\Database\Eloquent\Model;
 
@@ -84,6 +86,26 @@ class BaseRepository implements EloquentRepositoryInterface
 
 
     /**
+     * Delete model by the given ID
+     *
+     * @param integer $id
+     *
+     * @return Model
+     * @throws DeleteException
+     * @throws TrashException
+     * @throws DataNotFoundException
+     */
+    public function delete(int $id): Model
+    {
+        $this->model = $this->findOrFail($id);
+        if (!$this->model->destroy($id)) {
+            throw new DeleteException();
+        }
+
+        return $this->findTrash($id);
+    }
+
+    /**
      * Find model by the given ID
      *
      * @param integer $id
@@ -99,5 +121,26 @@ class BaseRepository implements EloquentRepositoryInterface
             throw new DataNotFoundException();
         }
         return $data;
+    }
+
+    /**
+     * Find model from trash by the given ID
+     *
+     * @param integer $id
+     *
+     * @return Model
+     * @throws TrashException
+     */
+    public function findTrash(int $id): Model
+    {
+        $model = $this->model->withTrashed()->find($id);
+        if (null === $model) {
+            throw new TrashException();
+        }
+
+        if (null === $model->deleted_at) {
+            throw new TrashException();
+        }
+        return $model;
     }
 }
