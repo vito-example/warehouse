@@ -13,6 +13,7 @@ use App\Traits\ScopeFilter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -81,5 +82,13 @@ class Product extends Model
     {
         return $this->belongsToMany(WareHouse::class, 'product_warehouses')
             ->withPivot(['count', 'date']);
+    }
+
+    /**
+     * @return MorphMany
+     */
+    public function transfers(): MorphMany
+    {
+        return $this->morphMany(Transfer::class, 'transferable');
     }
 }
