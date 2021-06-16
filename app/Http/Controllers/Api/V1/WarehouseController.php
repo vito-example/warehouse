@@ -62,12 +62,12 @@ class WarehouseController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return Response
+     * @param int $id
+     * @return WarehouseResource
      */
-    public function show($id)
+    public function show(int $id): WarehouseResource
     {
-        //
+        return new WarehouseResource($this->warehouseRepository->findOrFail($id));
     }
 
     /**
