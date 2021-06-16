@@ -122,14 +122,15 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param ProductRequest $request
+     * @param int $id
+     * @return ProductResource
      */
-    public function update(Request $request, $id)
+    public function update(ProductRequest $request,int $id): ProductResource
     {
-        //
-    }
+        $attributes = $request->only('supplier_id', 'name', 'warehouses');
+
+        return new ProductResource($this->productRepository->update($id, $attributes));    }
 
     /**
      * Remove the specified resource from storage.

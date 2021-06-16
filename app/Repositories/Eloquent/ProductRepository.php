@@ -7,6 +7,7 @@
  *
  * @author Vito Makhatadze <vitomakhatadze@gmail.com>
  */
+
 namespace App\Repositories\Eloquent;
 
 
@@ -46,11 +47,13 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
 
             $this->model = parent::create($data);
 
-            foreach ($attributes['warehouses'] as $warehouse) {
-                $this->model->warehouses()->attach($warehouse['id'], [
-                    'count' => $warehouse['count'],
-                    'date' => $warehouse['date']
-                ]);
+            if (count($attributes['warehouses'])) {
+                foreach ($attributes['warehouses'] as $warehouse) {
+                    $this->model->warehouses()->attach($warehouse['id'], [
+                        'count' => $warehouse['count'],
+                        'date' => $warehouse['date']
+                    ]);
+                }
             }
 
             DB::connection()->commit();
@@ -61,5 +64,38 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
             DB::connection()->rollBack();
         }
     }
+
+    public function update(int $id, array $data = []): Product
+    {
+        try {
+            DB::connection()->beginTransaction();
+
+            $attributes = [
+                'supplier_id' => $data['supplier_id'],
+                'name' => $data['name']
+            ];
+
+            $this->model = parent::update($id, $attributes);
+
+            // Remove all warehouses.
+            $this->model->warehouses()->detach();
+
+            if (count($data['warehouses'])) {
+                foreach ($data['warehouses'] as $warehouse) {
+                    $this->model->warehouses()->attach($warehouse['id'], [
+                        'count' => $warehouse['count'],
+                        'date' => $warehouse['date']
+                    ]);
+                }
+            }
+
+            DB::connection()->commit();
+
+            return $this->model;
+        } catch (\PDOException $e) {
+            DB::connection()->rollBack();
+        }
+    }
+
 
 }
