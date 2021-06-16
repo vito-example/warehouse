@@ -97,11 +97,11 @@ class ProductController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return ProductResource
      */
-    public function show($id)
+    public function show(int $id): ProductResource
     {
-        //
+        return new ProductResource($this->productRepository->findOrFail($id));
     }
 
     /**
