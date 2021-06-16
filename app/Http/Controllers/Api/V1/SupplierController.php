@@ -80,7 +80,7 @@ class SupplierController extends Controller
      * @param int $id
      * @return SupplierResource
      */
-    public function update(SupplierRequest $request, int $id)
+    public function update(SupplierRequest $request, int $id): SupplierResource
     {
         $attributes = $request->only('name');
 
@@ -91,10 +91,10 @@ class SupplierController extends Controller
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return SupplierResource
      */
-    public function destroy($id)
+    public function destroy(int $id): SupplierResource
     {
-        //
+        return new SupplierResource($this->supplierRepository->delete($id));
     }
 }
