@@ -10,6 +10,9 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\V1\WarehouseRequest;
+use App\Http\Resources\Api\v1\Warehouse\WarehouseCollection;
+use App\Repositories\WarehouseRepositoryInterface;
 use Illuminate\Http\Request;
 
 /**
@@ -18,14 +21,27 @@ use Illuminate\Http\Request;
  */
 class WarehouseController extends Controller
 {
+
+    /**
+     * @var WarehouseRepositoryInterface
+     */
+    private $warehouseRepository;
+
+    public function __construct(
+        WarehouseRepositoryInterface $warehouseRepository
+    ) {
+        $this->warehouseRepository = $warehouseRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param WarehouseRequest $request
+     * @return WarehouseCollection
      */
-    public function index()
+    public function index(WarehouseRequest $request): WarehouseCollection
     {
-        //
+        return new WarehouseCollection($this->warehouseRepository->getData($request));
     }
 
     /**
