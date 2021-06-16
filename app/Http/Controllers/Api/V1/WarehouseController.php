@@ -91,10 +91,10 @@ class WarehouseController extends Controller
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return Response
+     * @return WarehouseResource
      */
-    public function destroy($id)
+    public function destroy(int $id): WarehouseResource
     {
-        //
+        return new WarehouseResource($this->warehouseRepository->delete($id));
     }
 }
