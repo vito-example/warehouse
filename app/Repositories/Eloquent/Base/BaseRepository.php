@@ -10,6 +10,7 @@
 
 namespace App\Repositories\Eloquent\Base;
 
+use App\Exceptions\Api\v1\DataNotFoundException;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -59,5 +60,24 @@ class BaseRepository implements EloquentRepositoryInterface
     public function create(array $attributes = []): Model
     {
         return $this->model->create($attributes);
+    }
+
+
+    /**
+     * Find model by the given ID
+     *
+     * @param integer $id
+     * @param array $columns
+     *
+     * @return mixed
+     * @throws DataNotFoundException
+     */
+    public function findOrFail(int $id, array $columns = ['*'])
+    {
+        $data = $this->model->find($id, $columns);
+        if (!$data) {
+            throw new DataNotFoundException();
+        }
+        return $data;
     }
 }

@@ -32,4 +32,11 @@ interface EloquentRepositoryInterface
      * @return Model
      */
     public function create(array $attributes): Model;
+
+    /**
+     * @param int $id
+     * @param array|string[] $columns
+     * @return mixed
+     */
+    public function findOrFail(int $id, array $columns = ['*']);
 }
