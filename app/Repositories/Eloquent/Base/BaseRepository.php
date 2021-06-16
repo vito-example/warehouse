@@ -32,4 +32,20 @@ class BaseRepository implements EloquentRepositoryInterface
     {
         $this->model = $model;
     }
+
+    /** Get Data with pagination
+     *
+     * @param $request
+     * @param array $with
+     * @return mixed
+     */
+    public function getData($request, array $with = []) {
+        $data = $this->model->filter($request);
+
+        if ($request->filled('paginate')) {
+            return $data->with($with)->paginate($request['paginate']);
+        }
+
+        return $data->with($with)->get();
+    }
 }

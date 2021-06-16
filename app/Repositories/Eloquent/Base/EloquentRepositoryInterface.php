@@ -16,5 +16,11 @@ namespace App\Repositories\Eloquent\Base;
  */
 interface EloquentRepositoryInterface
 {
-
+    /**
+     * @param $request
+     * @param array $with
+     *
+     * @return mixed
+     */
+    public function getData($request,array $with = []);
 }
