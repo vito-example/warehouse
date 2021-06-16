@@ -72,27 +72,19 @@ class SupplierController extends Controller
         return new SupplierResource($this->supplierRepository->findOrFail($id));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param SupplierRequest $request
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return SupplierResource
      */
-    public function update(Request $request, $id)
+    public function update(SupplierRequest $request, int $id)
     {
-        //
+        $attributes = $request->only('name');
+
+        return new SupplierResource($this->supplierRepository->update($id, $attributes));
     }
 
     /**
