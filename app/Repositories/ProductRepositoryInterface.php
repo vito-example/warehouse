@@ -12,6 +12,7 @@ namespace App\Repositories;
 
 use App\Http\Requests\Api\V1\ProductRequest;
 use App\Http\Requests\Api\V1\WarehouseRequest;
+use App\Models\Product;
 
 /**
  * Interface ProductRepositoryInterface
@@ -25,4 +26,11 @@ interface ProductRepositoryInterface
      * @return mixed
      */
     public function getData(ProductRequest $request, array $with = []);
+
+    /**
+     * @param array $attributes
+     *
+     * @return Product
+     */
+    public function create(array $attributes): Product;
 }

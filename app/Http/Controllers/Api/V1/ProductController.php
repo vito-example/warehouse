@@ -14,6 +14,7 @@ use App\Http\Requests\Api\V1\ProductRequest;
 use App\Http\Requests\Api\V1\SupplierRequest;
 use App\Http\Requests\Api\V1\WarehouseRequest;
 use App\Http\Resources\Api\v1\Product\ProductCollection;
+use App\Http\Resources\Api\v1\Product\ProductResource;
 use App\Repositories\ProductRepositoryInterface;
 use App\Repositories\SupplierRepositoryInterface;
 use App\Repositories\WarehouseRepositoryInterface;
@@ -83,13 +84,14 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param ProductRequest $request
+     * @return ProductResource
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request): ProductResource
     {
-        //
-    }
+        $attributes = $request->only('supplier_id', 'name', 'warehouses');
+
+        return new ProductResource($this->productRepository->create($attributes));    }
 
     /**
      * Display the specified resource.
@@ -116,7 +118,7 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
