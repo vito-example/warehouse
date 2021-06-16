@@ -12,8 +12,10 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\WarehouseRequest;
 use App\Http\Resources\Api\v1\Warehouse\WarehouseCollection;
+use App\Http\Resources\Api\v1\Warehouse\WarehouseResource;
 use App\Repositories\WarehouseRepositoryInterface;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 /**
  * Class WarehouseController
@@ -45,31 +47,23 @@ class WarehouseController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param WarehouseRequest $request
+     * @return WarehouseResource
      */
-    public function store(Request $request)
+    public function store(WarehouseRequest $request): WarehouseResource
     {
-        //
+        $attributes = $request->only('name');
+
+        return new WarehouseResource($this->warehouseRepository->create($attributes));
     }
 
     /**
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show($id)
     {
@@ -80,7 +74,7 @@ class WarehouseController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit($id)
     {
@@ -92,7 +86,7 @@ class WarehouseController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -103,7 +97,7 @@ class WarehouseController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy($id)
     {
