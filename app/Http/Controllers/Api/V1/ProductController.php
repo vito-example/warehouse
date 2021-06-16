@@ -11,8 +11,13 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\ProductRequest;
+use App\Http\Requests\Api\V1\SupplierRequest;
+use App\Http\Requests\Api\V1\WarehouseRequest;
 use App\Http\Resources\Api\v1\Product\ProductCollection;
 use App\Repositories\ProductRepositoryInterface;
+use App\Repositories\SupplierRepositoryInterface;
+use App\Repositories\WarehouseRepositoryInterface;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 /**
@@ -25,15 +30,29 @@ class ProductController extends Controller
      * @var ProductRepositoryInterface
      */
     private $productRepository;
+    /**
+     * @var WarehouseRepositoryInterface
+     */
+    private $wareHouseRepository;
+    /**
+     * @var SupplierRepositoryInterface
+     */
+    private $supplierRepository;
 
     /**
      * ProductController constructor.
      * @param ProductRepositoryInterface $productRepository
+     * @param WarehouseRepositoryInterface $warehouseRepository
+     * @param SupplierRepositoryInterface $supplierRepository
      */
     public function __construct(
-        ProductRepositoryInterface $productRepository
+        ProductRepositoryInterface $productRepository,
+        WarehouseRepositoryInterface $warehouseRepository,
+        SupplierRepositoryInterface $supplierRepository
     ) {
         $this->productRepository = $productRepository;
+        $this->wareHouseRepository = $warehouseRepository;
+        $this->supplierRepository = $supplierRepository;
     }
 
 
@@ -51,11 +70,14 @@ class ProductController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
     public function create()
     {
-        //
+        return response()->json([
+            'ware_houses' => $this->wareHouseRepository->getData(new WarehouseRequest()),
+            'suppliers' => $this->supplierRepository->getData(new SupplierRequest()),
+        ]);
     }
 
     /**
