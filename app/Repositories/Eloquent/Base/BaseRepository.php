@@ -48,4 +48,16 @@ class BaseRepository implements EloquentRepositoryInterface
 
         return $data->with($with)->get();
     }
+
+    /**
+     * Create new model
+     *
+     * @param array $attributes
+     *
+     * @return Model
+     */
+    public function create(array $attributes = []): Model
+    {
+        return $this->model->create($attributes);
+    }
 }
