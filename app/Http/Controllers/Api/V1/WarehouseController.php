@@ -7,6 +7,7 @@
  *
  * @author Vito Makhatadze <vitomakhatadze@gmail.com>
  */
+
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
@@ -31,7 +32,8 @@ class WarehouseController extends Controller
 
     public function __construct(
         WarehouseRepositoryInterface $warehouseRepository
-    ) {
+    )
+    {
         $this->warehouseRepository = $warehouseRepository;
     }
 
@@ -70,33 +72,25 @@ class WarehouseController extends Controller
         return new WarehouseResource($this->warehouseRepository->findOrFail($id));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return Response
+     * @param WarehouseRequest $request
+     * @param int $id
+     * @return WarehouseResource
      */
-    public function update(Request $request, $id)
+    public function update(WarehouseRequest $request, int $id): WarehouseResource
     {
-        //
+        $attributes = $request->only('name');
+
+        return new WarehouseResource($this->warehouseRepository->update($id, $attributes));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function destroy($id)
