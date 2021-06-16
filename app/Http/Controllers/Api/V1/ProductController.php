@@ -136,10 +136,10 @@ class ProductController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return ProductResource
      */
-    public function destroy($id)
+    public function destroy(int $id): ProductResource
     {
-        //
+        return new ProductResource($this->productRepository->delete($id));
     }
 }
