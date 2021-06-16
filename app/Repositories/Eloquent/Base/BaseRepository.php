@@ -11,6 +11,7 @@
 namespace App\Repositories\Eloquent\Base;
 
 use App\Exceptions\Api\v1\DataNotFoundException;
+use App\Exceptions\Api\v1\UpdateException;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -40,7 +41,8 @@ class BaseRepository implements EloquentRepositoryInterface
      * @param array $with
      * @return mixed
      */
-    public function getData($request, array $with = []) {
+    public function getData($request, array $with = [])
+    {
         $data = $this->model->filter($request);
 
         if ($request->filled('paginate')) {
@@ -60,6 +62,24 @@ class BaseRepository implements EloquentRepositoryInterface
     public function create(array $attributes = []): Model
     {
         return $this->model->create($attributes);
+    }
+
+    /**
+     * Update model by the given ID
+     *
+     * @param integer $id
+     * @param array $data
+     *
+     * @return mixed
+     * @throws UpdateException|DataNotFoundException
+     */
+    public function update(int $id, array $data = []): Model
+    {
+        $this->model = $this->findOrFail($id);
+        if (!$this->model->update($data)) {
+            throw new UpdateException();
+        }
+        return $this->model;
     }
 
 

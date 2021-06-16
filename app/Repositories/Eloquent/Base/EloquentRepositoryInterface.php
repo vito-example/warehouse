@@ -35,6 +35,14 @@ interface EloquentRepositoryInterface
 
     /**
      * @param int $id
+     * @param array $data
+     *
+     * @return Model
+     */
+    public function update(int $id, array $data = []): Model;
+
+    /**
+     * @param int $id
      * @param array|string[] $columns
      * @return mixed
      */
