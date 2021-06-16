@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\ProductController;
 use App\Http\Controllers\Api\V1\SupplierController;
 use App\Http\Controllers\Api\V1\WarehouseController;
 use Illuminate\Http\Request;
@@ -12,6 +13,9 @@ Route::prefix('v1')->group(function () {
 
     // Warehouse Module
     Route::apiResource('warehouse',WarehouseController::class);
+
+    // Product Module
+    Route::apiResource('product',ProductController::class);
 });
 
 
