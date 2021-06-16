@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\V1\ProductController;
 use App\Http\Controllers\Api\V1\SupplierController;
+use App\Http\Controllers\Api\V1\TransferController;
 use App\Http\Controllers\Api\V1\WarehouseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -16,6 +17,9 @@ Route::prefix('v1')->group(function () {
 
     // Product Module
     Route::apiResource('product',ProductController::class);
+
+    // Transfer module
+    Route::get('transfer',[TransferController::class,'index']);
 });
 
 
