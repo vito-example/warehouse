@@ -12,8 +12,10 @@ namespace App\Providers;
 
 use App\Repositories\Eloquent\Base\BaseRepository;
 use App\Repositories\Eloquent\Base\EloquentRepositoryInterface;
+use App\Repositories\Eloquent\ProductRepository;
 use App\Repositories\Eloquent\SupplierRepository;
 use App\Repositories\Eloquent\WarehouseRepository;
+use App\Repositories\ProductRepositoryInterface;
 use App\Repositories\SupplierRepositoryInterface;
 use App\Repositories\WarehouseRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
@@ -42,7 +44,8 @@ class RepositoryServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->app->bind(EloquentRepositoryInterface::class, BaseRepository::class);
-        $this->app->bind(SupplierRepositoryInterface::class,SupplierRepository::class);
-        $this->app->bind(WarehouseRepositoryInterface::class,WarehouseRepository::class);
+        $this->app->bind(SupplierRepositoryInterface::class, SupplierRepository::class);
+        $this->app->bind(WarehouseRepositoryInterface::class, WarehouseRepository::class);
+        $this->app->bind(ProductRepositoryInterface::class, ProductRepository::class);
     }
 }
