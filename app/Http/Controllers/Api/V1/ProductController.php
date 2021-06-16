@@ -108,11 +108,15 @@ class ProductController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function edit($id)
+    public function edit($id): JsonResponse
     {
-        //
+        return response()->json([
+            'product' => $this->productRepository->findOrFail($id),
+            'warehouses' => $this->wareHouseRepository->getData(new WarehouseRequest()),
+            'suppliers' => $this->supplierRepository->getData(new SupplierRequest()),
+        ]);
     }
 
     /**
