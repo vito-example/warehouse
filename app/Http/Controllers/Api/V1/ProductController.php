@@ -15,6 +15,7 @@ use App\Http\Requests\Api\V1\SupplierRequest;
 use App\Http\Requests\Api\V1\WarehouseRequest;
 use App\Http\Resources\Api\v1\Product\ProductCollection;
 use App\Http\Resources\Api\v1\Product\ProductResource;
+use App\Models\Product;
 use App\Repositories\ProductRepositoryInterface;
 use App\Repositories\SupplierRepositoryInterface;
 use App\Repositories\WarehouseRepositoryInterface;
@@ -111,10 +112,12 @@ class ProductController extends Controller
      * @param  int  $id
      * @return JsonResponse
      */
-    public function edit($id): JsonResponse
+    public function edit(int $id): JsonResponse
     {
+        $product = Product::where('id',$id)->with('warehouses')->firstOrFail();
+
         return response()->json([
-            'product' => $this->productRepository->findOrFail($id),
+            'product' => $product,
             'warehouses' => $this->wareHouseRepository->getData(new WarehouseRequest()),
             'suppliers' => $this->supplierRepository->getData(new SupplierRequest()),
         ]);
