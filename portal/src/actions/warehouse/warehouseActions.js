@@ -5,6 +5,7 @@ import {
     SET_UPDATED_WAREHOUSE, SET_WAREHOUSES_LOADING, SET_WAREHOUSES_SEARCH_QUERY,
     SHOW_WAREHOUSE_FORM
 } from "./warehouseTypes";
+import {PAGE_SIZE} from "../../core/config/global";
 
 const url = process.env.MIX_SERVER_API_URL;
 
@@ -54,7 +55,7 @@ export const createWarehouse = data => (dispatch,getState) => {
         axios
             .post(`${url}/warehouse`, data)
             .then(res => {
-                searchQuery === '?pageSize=1' ? dispatch(getWarehouses()) : dispatch(clearWarehouseSearchQuery())
+                searchQuery === `?pageSize=${PAGE_SIZE}` ? dispatch(getWarehouses()) : dispatch(clearWarehouseSearchQuery())
                 resolve(res.data)
             })
             .catch(err => reject(err))

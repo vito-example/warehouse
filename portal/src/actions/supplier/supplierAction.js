@@ -7,6 +7,7 @@ import {
     SET_SUPPLIERS_SEARCH_QUERY, SET_UPDATED_SUPPLIER,
     SHOW_SUPPLIER_FORM
 } from "./supplierTypes";
+import {PAGE_SIZE} from "../../core/config/global";
 
 const url = process.env.MIX_SERVER_API_URL;
 
@@ -56,7 +57,7 @@ export const createSupplier = data => (dispatch,getState) => {
         axios
             .post(`${url}/supplier`, data)
             .then(res => {
-                searchQuery === '?pageSize=1' ? dispatch(getSuppliers()) : dispatch(clearSupplierSearchQuery())
+                searchQuery === `?pageSize=${PAGE_SIZE}` ? dispatch(getSuppliers()) : dispatch(clearSupplierSearchQuery())
                 resolve(res.data)
             })
             .catch(err => reject(err))

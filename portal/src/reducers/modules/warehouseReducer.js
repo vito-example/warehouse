@@ -1,12 +1,9 @@
-import {
-    CLEAR_SUPPLIER_SEARCH_QUERY,
-    CLOSE_SUPPLIER_FORM,
-    GET_SUPPLIERS,
-    SET_SUPPLIERS_LOADING,
-    SET_SUPPLIERS_SEARCH_QUERY, SET_UPDATED_SUPPLIER,
-    SHOW_SUPPLIER_FORM
-} from "../../actions/supplier/supplierTypes";
 import queryString from "querystring";
+import {
+    CLEAR_WAREHOUSE_SEARCH_QUERY,
+    CLOSE_WAREHOUSE_FORM, GET_WAREHOUSES,
+    SET_UPDATED_WAREHOUSE, SET_WAREHOUSES_LOADING, SET_WAREHOUSES_SEARCH_QUERY, SHOW_WAREHOUSE_FORM
+} from "../../actions/warehouse/warehouseTypes";
 import {PAGE_SIZE} from "../../core/config/global";
 
 
@@ -18,19 +15,19 @@ const initialState = {
         per_page: 10,
         current: 1,
         total: null,
-        pageSize: 10,
+        pageSize: PAGE_SIZE,
     },
     searchQuery: `?pageSize=${PAGE_SIZE}`,
-    showSupplierForm: {
+    showWarehouseForm: {
         show: false,
-        modalSupplier: {}
+        modalWarehouse: {}
     },
 }
 
 
 export default function (state = initialState, action) {
     switch (action.type){
-        case GET_SUPPLIERS:
+        case GET_WAREHOUSES:
             return {
                 ...state,
                 data: action.payload.data,
@@ -40,40 +37,40 @@ export default function (state = initialState, action) {
                     loading: false
                 }
             }
-        case SET_SUPPLIERS_LOADING:
+        case SET_WAREHOUSES_LOADING:
             return {
                 ...state,
                 ...state.pagination,
                 loading: true
             }
-        case SET_SUPPLIERS_SEARCH_QUERY:
+        case SET_WAREHOUSES_SEARCH_QUERY:
             let searchQuery = queryString.parse(state.searchQuery)
             return {
                 ...state,
                 searchQuery: `?${queryString.stringify(getSearchQueryParams({...state.pagination, ...searchQuery, ...action.payload}))}`
             }
-        case SHOW_SUPPLIER_FORM:
+        case SHOW_WAREHOUSE_FORM:
             return {
                 ...state,
-                showSupplierForm: {
+                showWarehouseForm: {
                     show: true,
-                    modalSupplier: action.payload
+                    modalWarehouse: action.payload
                 }
             }
-        case CLOSE_SUPPLIER_FORM:
+        case CLOSE_WAREHOUSE_FORM:
             return {
                 ...state,
-                showSupplierForm: {
+                showWarehouseForm: {
                     show: false,
-                    modalSupplier: {}
+                    modalWarehouse: {}
                 }
             }
-        case CLEAR_SUPPLIER_SEARCH_QUERY:
+        case CLEAR_WAREHOUSE_SEARCH_QUERY:
             return {
                 ...state,
                 searchQuery: `?pageSize=${PAGE_SIZE}`
             }
-        case SET_UPDATED_SUPPLIER:
+        case SET_UPDATED_WAREHOUSE:
             return {
                 ...state,
                 data: state.data.map(el => el.id === action.payload.id ? action.payload : el)
