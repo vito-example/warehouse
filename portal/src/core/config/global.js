@@ -1,1 +1,1 @@
-export const PAGE_SIZE = process.env.PAGE_SIZE
+export const PAGE_SIZE = process.env.MIX_PAGE_SIZE

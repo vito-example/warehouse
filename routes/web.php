@@ -3,6 +3,6 @@
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/', function () {
+Route::get('{slug?}', function () {
     return view('welcome');
 });

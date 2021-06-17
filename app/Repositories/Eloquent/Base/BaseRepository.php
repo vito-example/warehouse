@@ -47,8 +47,8 @@ class BaseRepository implements EloquentRepositoryInterface
     {
         $data = $this->model->filter($request);
 
-        if ($request->filled('paginate')) {
-            return $data->with($with)->paginate($request['paginate']);
+        if ($request->filled('pageSize')) {
+            return $data->with($with)->paginate($request['pageSize']);
         }
 
         return $data->with($with)->get();

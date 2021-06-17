@@ -13,6 +13,7 @@ import CHeader from "./components/Header/Header";
 import Supplier from "./modules/Supplier/Supplier";
 import Layout, {Content, Footer} from "antd/es/layout/layout";
 import Sider from "antd/es/layout/Sider";
+import Warehouse from "./modules/Warehouse/Warehouse";
 
 const App =() => (
     <Provider store={store}>
@@ -30,6 +31,9 @@ const App =() => (
                         <ToastContainer />
                         <Switch>
                             <Route exact path="/supplier" component={Supplier}/>
+                        </Switch>
+                        <Switch>
+                            <Route exact path="/warehouse" component={Warehouse} />
                         </Switch>
                     </Content>
                     <Footer className="footer">
