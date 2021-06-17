@@ -73,10 +73,11 @@ class ProductController extends Controller
      *
      * @return JsonResponse
      */
-    public function create()
+    public function create(): JsonResponse
     {
         return response()->json([
-            'ware_houses' => $this->wareHouseRepository->getData(new WarehouseRequest()),
+            'product' => null,
+            'warehouses' => $this->wareHouseRepository->getData(new WarehouseRequest()),
             'suppliers' => $this->supplierRepository->getData(new SupplierRequest()),
         ]);
     }
