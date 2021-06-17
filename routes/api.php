@@ -10,17 +10,13 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('v1')->group(function () {
 
     // Supplier Module
-    Route::apiResource('supplier',SupplierController::class)->except([
-        'edit', 'edit'
-    ]);
+    Route::apiResource('supplier',SupplierController::class);
 
     // Warehouse Module
-    Route::apiResource('warehouse',WarehouseController::class)->except([
-        'edit', 'edit'
-    ]);
+    Route::apiResource('warehouse',WarehouseController::class);
 
     // Product Module
-    Route::apiResource('product',ProductController::class);
+    Route::resource('product',ProductController::class);
 
     // Transfer module
     Route::get('transfer',[TransferController::class,'index']);
