@@ -11,12 +11,12 @@ Route::prefix('v1')->group(function () {
 
     // Supplier Module
     Route::apiResource('supplier',SupplierController::class)->except([
-        'edit', 'update'
+        'edit', 'edit'
     ]);
 
     // Warehouse Module
     Route::apiResource('warehouse',WarehouseController::class)->except([
-        'edit', 'update'
+        'edit', 'edit'
     ]);
 
     // Product Module

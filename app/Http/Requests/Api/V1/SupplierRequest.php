@@ -9,8 +9,8 @@
  */
 namespace App\Http\Requests\Api\V1;
 
-use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 /**
  * Class SupplierRequest
