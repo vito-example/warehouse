@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Button, Row, Col, Form, Input, InputNumber, Modal, Select, Switch, DatePicker} from "antd";
+import {Button, Form, InputNumber, Modal, Select, DatePicker} from "antd";
 import PropTypes, {} from "prop-types";
 import {connect} from "react-redux";
 import isEmpty from "../../core/validation/is-empty";
@@ -52,7 +52,7 @@ class TransferForm extends Component {
             count: this.state.count,
         }
         this.setState({loading: true})
-        await this.props.createTransfer(this.state.id,data)
+        await this.props.createTransfer(this.state.id, data)
             .then(res => {
                 toast.success(`Transfer - Created`);
                 this.closeTransferForm()
@@ -143,14 +143,14 @@ class TransferForm extends Component {
                     <Form.Item
                         label='Count'
                         validateStatus={this.state.errors.count ? 'error' : ''}
-                        help={this.state.errors.count ??  ''}
+                        help={this.state.errors.count ?? ''}
                     >
                         <InputNumber
-                                     min={1}
-                                     name='count'
-                                     onChange={(value) => this.setState({count: value})}
-                                     value={this.state.count}
-                                     placeholder="count" style={{width: '100%'}}/>
+                            min={1}
+                            name='count'
+                            onChange={(value) => this.setState({count: value})}
+                            value={this.state.count}
+                            placeholder="count" style={{width: '100%'}}/>
                     </Form.Item>
                     <Form.Item
                         label="Transfer To"
@@ -175,14 +175,14 @@ class TransferForm extends Component {
                     <Form.Item
                         label='Date'
                         validateStatus={this.state.errors.date ? 'error' : ''}
-                        help={this.state.errors.date ??  ''}
+                        help={this.state.errors.date ?? ''}
                     >
                         <DatePicker
                             allowClear={false}
                             name="date"
                             value={this.state.date !== null ? moment(this.state.date, "YYYY/MM/DD") : ''}
-                            onChange={(_,date) => this.setState({date: date})}
-                            onOk={(_,date) => this.setState({date: date})}
+                            onChange={(_, date) => this.setState({date: date})}
+                            onOk={(_, date) => this.setState({date: date})}
                         />
                     </Form.Item>
                     <Button type="primary" htmlType="submit" loading={this.state.loading}
