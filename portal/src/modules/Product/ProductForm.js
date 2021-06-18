@@ -235,7 +235,6 @@ class ProductForm extends Component {
                                                     onChange={(id) => this.warehouseChange(field,id,'id')}
                                                     allowClear
                                                     placeholder="Select Warehouse"
-                                                    disabled={this.state.warehouses.length > index + 1}
                                                     key={`warehouse-${field.key}`}
                                                     value={this.state.warehouses[index].id}
                                                 >
@@ -251,7 +250,7 @@ class ProductForm extends Component {
                                                 help={this.state.errors[`warehouses.${index}.count`] ??  ''}
                                                 key={`remove-${field.key}`}
                                             >
-                                                <InputNumber disabled={this.state.warehouses.length > index + 1}
+                                                <InputNumber
                                                              min={1}
                                                              name='count'
                                                              onChange={(id) => this.warehouseChange(field,id,'count')}
@@ -271,7 +270,6 @@ class ProductForm extends Component {
                                                 <DatePicker
                                                     allowClear={false}
                                                     name="date"
-                                                    disabled={this.state.warehouses.length > index + 1}
                                                     value={this.state.warehouses[index].date !== null ? moment(this.state.warehouses[index].date, "YYYY/MM/DD") : ''}
                                                     onChange={(_,date) => this.warehouseChange(field,date,'date')}
                                                     onOk={(_,date) => this.warehouseChange(field,date,'date')}
