@@ -14,6 +14,7 @@ import Supplier from "./modules/Supplier/Supplier";
 import Layout, {Content, Footer} from "antd/es/layout/layout";
 import Sider from "antd/es/layout/Sider";
 import Warehouse from "./modules/Warehouse/Warehouse";
+import Product from "./modules/Product/Product";
 
 const App =() => (
     <Provider store={store}>
@@ -34,6 +35,9 @@ const App =() => (
                         </Switch>
                         <Switch>
                             <Route exact path="/warehouse" component={Warehouse} />
+                        </Switch>
+                        <Switch>
+                            <Route exact path="/product" component={Product} />
                         </Switch>
                     </Content>
                     <Footer className="footer">
