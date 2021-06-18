@@ -28,16 +28,19 @@ class TransferRequest extends Request
         // Check if method is get,fields are nullable.
         $isRequired = $this->method() === 'GET' ? 'nullable' : 'required';
 
-        return [
-            'transfer_from' => [
-                $isRequired,
-                'exists:warehouses,id',
-                new ValidTransferFrom($this->getProductModel(),$this->count)
-            ],
+        $data = [
             'transfer_to' => $isRequired.'|exists:warehouses,id',
             'count' => $isRequired.'|numeric',
             'date' => $isRequired.'|date',
         ];
+        if ($this->method === 'POST') {
+            $data['transfer_from'] = [
+                $isRequired,
+                'exists:warehouses,id',
+                $isRequired ? new ValidTransferFrom($this->getProductModel(),$this->count) : ''
+            ];
+        }
+        return $data;
     }
 
     /**

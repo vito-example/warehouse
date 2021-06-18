@@ -17,4 +17,10 @@ export default [
         icon: 'UserOutlined',
         isLevel: true
     },
+    {
+        title: 'Transfer',
+        key: '/transfer',
+        icon: 'UserOutlined',
+        isLevel: true
+    }
 ]
