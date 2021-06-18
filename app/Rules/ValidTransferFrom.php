@@ -19,14 +19,14 @@ use phpDocumentor\Reflection\Types\Integer;
 class ValidTransferFrom implements Rule
 {
     protected Product $product;
-    protected int $count;
+    protected ?int $count;
     protected string $message;
     /**
      * Create a new rule instance.
      *
      * @return void
      */
-    public function __construct(Product $product, int $count)
+    public function __construct(Product $product, ?int $count)
     {
         $this->product = $product;
         $this->count = $count;

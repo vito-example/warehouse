@@ -17,6 +17,8 @@ import {
     showProductForm
 } from "../../actions/product/productActions";
 import ProductForm from "./ProductForm";
+import TransferForm from "./TransferForm";
+import {getCreateTransfer, showTransferForm} from "../../actions/transfer/transferActions";
 
 
 class Product extends Component{
@@ -76,7 +78,9 @@ class Product extends Component{
     async transferProduct(event, data)
     {
         event.preventDefault();
-
+        await getCreateTransfer(data.id)
+            .then(res => this.props.showTransferForm(res))
+            .catch(err => toast.error(err.response.data.message))
     }
 
     showDeleteProduct(event, data) {
@@ -161,6 +165,7 @@ class Product extends Component{
                     )}
                 </Modal>
                 <ProductForm />
+                <TransferForm />
             </div>
         )
     }
@@ -170,7 +175,8 @@ Product.propTypes = {
     getProducts: PropTypes.func.isRequired,
     setProductSearchQuery: PropTypes.func.isRequired,
     showProductForm: PropTypes.func.isRequired,
-    clearProductSearchQuery: PropTypes.func.isRequired
+    clearProductSearchQuery: PropTypes.func.isRequired,
+    showTransferForm :PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
@@ -182,6 +188,7 @@ export default withRouter(connect(mapStateToProps,
         getProducts,
         setProductSearchQuery,
         showProductForm,
-        clearProductSearchQuery
+        clearProductSearchQuery,
+        showTransferForm
     })
 (Product));

@@ -32,10 +32,10 @@ export const getTransfers = () => (dispatch, getState) => {
 };
 
 // Get transfer for store
-export const getCreateTransfer = () => {
+export const getCreateTransfer = (id) => {
     return new Promise(async (resolve, reject) => {
         axios
-            .get(`${url}/transfer/create`)
+            .get(`${url}/transfer/${id}/create`)
             .then((res) => resolve(res.data))
             .catch(err => reject(err))
     })
