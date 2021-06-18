@@ -8,19 +8,19 @@ export default [
     {
         title: 'Warehouse',
         key: '/warehouse',
-        icon: 'UserOutlined',
+        icon: 'BankOutlined',
         isLevel: true
     },
     {
         title: 'Product',
         key: '/product',
-        icon: 'UserOutlined',
+        icon: 'CloudOutlined',
         isLevel: true
     },
     {
         title: 'Transfer',
         key: '/transfer',
-        icon: 'UserOutlined',
+        icon: 'SwapOutlined',
         isLevel: true
     }
 ]
