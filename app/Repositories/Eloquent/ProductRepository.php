@@ -14,6 +14,7 @@ namespace App\Repositories\Eloquent;
 use App\Models\Product;
 use App\Repositories\Eloquent\Base\BaseRepository;
 use App\Repositories\ProductRepositoryInterface;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -35,7 +36,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
      * @param array $attributes
      * @return Product
      */
-    public function create(array $attributes = []): Product
+    public function create(array $attributes = []): Model
     {
         try {
             DB::connection()->beginTransaction();
@@ -65,7 +66,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
         }
     }
 
-    public function update(int $id, array $data = []): Product
+    public function update(int $id, array $data = []): Model
     {
         try {
             DB::connection()->beginTransaction();

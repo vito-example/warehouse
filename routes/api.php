@@ -20,6 +20,8 @@ Route::prefix('v1')->middleware(['paginate.api'])->group(function () {
 
     // Transfer module
     Route::get('transfer',[TransferController::class,'index']);
+    Route::get('transfer/{product}/create',[TransferController::class,'create']);
+    Route::post('transfer/{product}/store',[TransferController::class,'store']);
 });
 
 

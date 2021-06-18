@@ -32,13 +32,13 @@ interface ProductRepositoryInterface
      *
      * @return Product
      */
-    public function create(array $attributes): Product;
+    public function create(array $attributes);
 
     /**
      * @param int $id
      * @param array $data
      * @return Product
      */
-    public function update(int $id, array $data = []): Product;
+    public function update(int $id, array $data = []) ;
 
 }
